@@ -1,0 +1,20 @@
+{
+    "name": "hexlet/code",
+    "description": "Difference calculator",
+    "homepage": "https://github.com/toridnc/php-project-lvl2",
+    "readme": "https://github.com/toridnc/php-project-lvl2#readme",
+    "autoload": {
+        "psr-4": {
+            "Hexlet\\Code\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "vqck",
+            "email": "toridnc@gmail.com"
+        }
+    ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
+}
