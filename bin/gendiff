@@ -3,7 +3,7 @@
 <?php
 
 /**
- * Difference calculator File Doc Comment
+ * Reference information about Difference calculator
  *
  * PHP version 7.4
  *
@@ -22,6 +22,8 @@ if (file_exists($autoloadPath1)) {
     include_once $autoloadPath2;
 }
 
+use function Differ\Differ\genDiff;
+
 const DOC = <<<DOC
 Generate diff
 
@@ -37,4 +39,9 @@ Options:
 
 DOC;
 
-Docopt::handle(DOC);
+$args = Docopt::handle(DOC, array('version' => '1.0'));
+
+$firstFilePath = realpath($args['<firstFile>']);
+$secondFilePath = realpath($args['<secondFile>']);
+
+echo genDiff($firstFilePath, $secondFilePath);

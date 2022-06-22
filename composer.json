@@ -3,14 +3,21 @@
     "description": "Difference calculator",
     "homepage": "https://github.com/toridnc/php-project-lvl2",
     "readme": "https://github.com/toridnc/php-project-lvl2#readme",
+    "bin": [
+        "bin/gendiff"
+    ],
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Hexlet\\Code\\": "src/"
-        }
+        },
+        "files": [
+            "src/Differ.php"
+        ]
     },
     "authors": [
         {
-            "name": "vqck",
+            "name": "Victoria Smirnova",
             "email": "toridnc@gmail.com"
         }
     ],
