@@ -38,7 +38,7 @@ DOC;
 
 $args = Docopt::handle(DOC, array('version' => '1.0'));
 
-$firstFilePath = realpath($args['<firstFile>']);
-$secondFilePath = realpath($args['<secondFile>']);
+$firstFilePath = 'tests/fixtures/file1.json';
+$secondFilePath = 'tests/fixtures/file2.json';
 
-echo genDiff($firstFilePath, $secondFilePath);
+print_r(genDiff($firstFilePath, $secondFilePath));
