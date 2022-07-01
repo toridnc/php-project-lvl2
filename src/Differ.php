@@ -59,7 +59,8 @@ function parse(string $file): array
  */
 function compare(array $file1, array $file2): string
 {
-    $keys = ksort(array_merge($file1, $file2));
+    $keys = array_merge($file1, $file2);
+    ksort($keys);
 
     $diff = "{\n";
     foreach ($keys as $key => $value) {
