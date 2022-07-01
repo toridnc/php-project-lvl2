@@ -1,10 +1,22 @@
 name: test coverage
 
-steps:
-  - name: Test & publish code coverage
-    uses: paambaati/codeclimate-action@v3.0.0
-    env:
-      CC_TEST_REPORTER_ID: <763aa49b3623a4de4fcd31e7de8d2757720630ccd501e36e10bbb8ae759e7461>
-    with:
-      coverageCommand: npm run coverage
-      debug: true
+on:
+  push
+
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install
+        run: make install
+      - name: Run test & publish code coverage
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.TEST_COVERAGE_ID }}
+        with:
+          coverageCommand: make test-coverage
+          coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
+          debug: true
