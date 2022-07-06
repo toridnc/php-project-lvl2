@@ -12,7 +12,7 @@
  * @link     https://github.com/toridnc/php-project-lvl2
  */
 
-namespace Differ\PHPUnit\Tests;
+namespace Differ\Tests;
 
 use PHPUnit\Framework\TestCase;
 use function Differ\Differ\genDiff;
@@ -35,18 +35,18 @@ class DiffTest extends TestCase
      */
     public function testGenDiff(): void
     {
-        $expected = "{
-\t- follow: false
-\t  host: hexlet.io
-\t- proxy: 123.234.53.22
-\t- timeout: 50
-\t+ timeout: 20
-\t+ verbose: true
-}\n";
+        $expected = file_get_contents(
+            __DIR__ . "/fixtures/expected-json-yml-yaml.txt"
+        );
+        $json1 = __DIR__ . '/../tests/fixtures/file1.json';
+        $json2 = __DIR__ . '/../tests/fixtures/file2.json';
+        $this->assertEquals($expected, genDiff($json1, $json2));
 
-        $filePath1 = __DIR__ . '/../tests/fixtures/file1.json';
-        $filePath2 = __DIR__ . '/../tests/fixtures/file2.json';
-
-        $this->assertEquals($expected, genDiff($firstFilePath, $secondFilePath));
+        $expected = file_get_contents(
+            __DIR__ . "/fixtures/expected-json-yml-yaml.txt"
+        );
+        $yml1 = __DIR__ . '/../tests/fixtures/file1.yml';
+        $yml2 = __DIR__ . '/../tests/fixtures/file2.yml';
+        $this->assertEquals($expected, genDiff($yml1, $yml2));
     }
 }

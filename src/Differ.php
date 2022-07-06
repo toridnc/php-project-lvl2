@@ -14,6 +14,8 @@
 
 namespace Differ\Differ;
 
+use function Differ\Parsers\parse;
+
 /**
  * Builds a diff with file changes relative to each other
  *
@@ -28,23 +30,6 @@ function genDiff(string $pathToFile1, string $pathToFile2): string
     $secondArray = parse($pathToFile2);
     $diff = compare($firstArray, $secondArray);
     return json_encode($diff);
-}
-
-/**
- * Parses files
- *
- * @param string $file File
- *
- * @return array
- */
-function parse(string $file): array
-{
-    if (!file_exists($file)) {
-        return [];
-    }
-
-    $data = file_get_contents($file);
-    return json_decode($data, true);
 }
 
 /**

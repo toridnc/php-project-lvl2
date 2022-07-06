@@ -12,7 +12,8 @@
             "Hexlet\\Code\\": "src/"
         },
         "files": [
-            "src/Differ.php"
+            "src/Differ.php",
+            "src/Parsers.php"
         ]
     },
     "authors": [
@@ -26,6 +27,7 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.6",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "phpunit/php-code-coverage": "^9.2"
     }
 }
