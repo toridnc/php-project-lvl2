@@ -63,7 +63,11 @@ class DifferTest extends TestCase
             'json files to stylish' =>
             ['file-1.json', 'file-2.json', 'expectedStylish.txt'],
             'yaml files to stylish' =>
-            ['file-1.yaml', 'file-2.yaml', 'expectedStylish.txt']
+            ['file-1.yaml', 'file-2.yaml', 'expectedStylish.txt'],
+            'yaml files to plain' =>
+            ['file-1.yaml', 'file-2.yaml', 'expectedPlain.txt', 'plain'],
+            'json files to plain' =>
+            ['file-1.json', 'file-2.json', 'expectedPlain.txt', 'plain'],
         ];
     }
     /**

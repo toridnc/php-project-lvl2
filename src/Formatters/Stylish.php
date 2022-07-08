@@ -29,7 +29,7 @@ const FOUR_SPACES = '    ';
  */
 function stylish(array $diff): string
 {
-    $diffToStylish = buildBody($diff);
+    $diffToStylish = buildStylish($diff);
     return '{' . PHP_EOL . implode(PHP_EOL, $diffToStylish) . PHP_EOL . '}';
 }
 
@@ -41,7 +41,7 @@ function stylish(array $diff): string
  *
  * @return array
  */
-function buildBody(array $arrayDiff, int $depth = 0): array
+function buildStylish(array $arrayDiff, int $depth = 0): array
 {
     $indent = get_indent($depth);
     $nextDepth = $depth + 1;
@@ -52,7 +52,7 @@ function buildBody(array $arrayDiff, int $depth = 0): array
                 $value = $data['value'];
                 $formattedValue = toString($value, $nextDepth);
                 return "{$indent}" . FOUR_SPACES .
-                "{$node['key']}: {$formattedValue}";
+                "{$data['key']}: {$formattedValue}";
 
             case 'changed':
                 $value1 = $data['value1'];
@@ -60,21 +60,32 @@ function buildBody(array $arrayDiff, int $depth = 0): array
                 $value2 = $data['value2'];
                 $formattedValue2 = toString($value2, $nextDepth);
                 return "{$indent}" . TWO_SPACES . REMOWED . SPACE .
-                "{$node['key']}: {$formattedValue2}" . PHP_EOL .
+                "{$data['key']}: {$formattedValue2}" . PHP_EOL .
                 "{$indent}" . TWO_SPACES . ADDED . SPACE .
-                "{$node['key']}: {$formattedValue1}";
+                "{$data['key']}: {$formattedValue1}";
 
             case 'removed':
                 $value = $data['value'];
                 $formattedValue = toString($value, $nextDepth);
                 return "{$indent}" . TWO_SPACES . REMOWED . SPACE .
-                "{$node['key']}: {$formattedValue}";
+                "{$data['key']}: {$formattedValue}";
 
             case 'added':
                 $value = $data['value'];
                 $formattedValue = toString($value, $nextDepth);
                 return "{$indent}" . TWO_SPACES . ADDED . SPACE .
-                "{$node['key']}: {$formattedValue}";
+                "{$data['key']}: {$formattedValue}";
+
+            case 'nested':
+                $stringNested = implode(
+                    PHP_EOL, formatToStylish(
+                        $data['children'],
+                        $nextDepth
+                    )
+                );
+                return "{$indent}    {$data['key']}: {" . PHP_EOL .
+                    "{$stringNested}" . PHP_EOL . "{$indent}    }";
+
             // file correct check
             default;
                 throw new \Exception("Incorrect type: {$data['type']}");
