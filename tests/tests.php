@@ -15,6 +15,7 @@
 namespace Differ\Tests;
 
 use PHPUnit\Framework\TestCase;
+
 use function Differ\Differ\genDiff;
 
 /**
@@ -26,27 +27,55 @@ use function Differ\Differ\genDiff;
  * @license  http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link     https://github.com/toridnc/php-project-lvl2
  */
-class DiffTest extends TestCase
+class DifferTest extends TestCase
 {
     /**
-     * Test function for genDiff function
-     *
+     * Testing function genDiff in Differ.php
+     * 
+     * @param string $file1    File 1
+     * @param string $file2    File 2
+     * @param string $expected Expected result
+     * @param string $format   Needed format. Default value - 'stylish'
+     * 
      * @return void
      */
-    public function testGenDiff(): void
+    public function testDiffer(string $file1, string $file2, string $expected, string $format = 'stylish'): void
     {
-        $expected = file_get_contents(
-            __DIR__ . "/fixtures/expected-json-yml-yaml.txt"
-        );
-        $json1 = __DIR__ . '/../tests/fixtures/file1.json';
-        $json2 = __DIR__ . '/../tests/fixtures/file2.json';
-        $this->assertEquals($expected, genDiff($json1, $json2));
+        $assertMethod = ($format === 'json') 
+        ? 'assertJsonStringEqualsJsonFile' : 'assertStringEqualsFile';
 
-        $expected = file_get_contents(
-            __DIR__ . "/fixtures/expected-json-yml-yaml.txt"
+        $this->$assertMethod(
+            $this->makePathToFixture($expected),
+            genDiff($this->makePathToFixture($file1), $this->makePathToFixture($file2), $format)
         );
-        $yml1 = __DIR__ . '/../tests/fixtures/file1.yml';
-        $yml2 = __DIR__ . '/../tests/fixtures/file2.yml';
-        $this->assertEquals($expected, genDiff($yml1, $yml2));
+    }
+    /**
+     * Testing the received and expected results
+     * 
+     * @return array
+     */
+    public function conformity(): array
+    {
+        return [
+            'json files' => ['file1.json', 'file2.json', 'expectedJsonYmlYaml.txt'],
+            'yml and yaml files' =>
+            ['file1.yml', 'file2.yml', 'expectedJsonYmlYaml.txt'],
+            'json files to stylish' =>
+            ['file-1.json', 'file-2.json', 'expectedStylish.txt'],
+            'yaml files to stylish' =>
+            ['file-1.yaml', 'file-2.yaml', 'expectedStylish.txt']
+        ];
+    }
+    /**
+     * Testing the received and expected results
+     *
+     * @param string $fileName File names
+     * 
+     * @return string
+     */
+    public function makePathToFixture(string $fileName): string
+    {
+        $parts = [__DIR__, 'fixtures', $fileName];
+        return realpath(implode('/', $parts));
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Difference calculator File Doc Comment
+ * Parses files
  *
  * PHP version 7.4
  *
@@ -14,27 +14,27 @@
 
 namespace Differ\Parsers;
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Parses files
  *
- * @param string $file File
+ * @param string $file   File
+ * @param string $format File format
  *
  * @return array
  */
-function parse(string $file): array
+function parse(string $file, string $format): array
 {
-    if (!file_exists($file)) {
-        throw new \Exception('Incorrect file path!');
-    }
-
-    $extension = pathinfo($file, PATHINFO_EXTENSION);
-    $data = file_get_contents($file);
-
-    if (in_array($extension, ['yml', 'yaml'])) {
-        return Yaml::parse($data);
-    } elseif ($extension === 'json') {
+    switch ($format) {
+    case 'json':
         return json_decode($data, true);
-    } else {
-        throw new \Exception('Unknown file extension!');
+
+    case 'yml':
+    case 'yaml':
+        return Yaml::parse($data);
+        // file correct check
+    default:
+        throw new \Exception("Incorrect file format: $format");
     }
 }

@@ -36,9 +36,10 @@ Options:
 --format <fmt>                Report format [default: stylish]
 DOC;
 
-$args = Docopt::handle(DOC, array('version' => '1.0'));
+$args = Docopt::handle(DOC, array('version' => 'Generate diff 1.0'));
 
-$firstFilePath = 'tests/fixtures/file1.json';
-$secondFilePath = 'tests/fixtures/file2.json';
+$firstFilePath = $args['<firstFile>'];
+$secondFilePath = $args['<secondFile>'];
+$format = $args['--format'];
 
-print_r(genDiff($firstFilePath, $secondFilePath));
+print_r(genDiff($firstFilePath, $secondFilePath, $format));

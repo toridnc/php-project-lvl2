@@ -13,7 +13,9 @@
         },
         "files": [
             "src/Differ.php",
-            "src/Parsers.php"
+            "src/Parsers.php",
+            "src/Formatters.php",
+            "src/Formatters/Stylish.php"
         ]
     },
     "authors": [
@@ -23,7 +25,9 @@
         }
     ],
     "require": {
-        "docopt/docopt": "^1.0"
+        "docopt/docopt": "^1.0",
+        "symfony/yaml": "^5.4",
+        "lstrojny/functional-php": "^1.17"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.6",
