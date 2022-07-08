@@ -28,11 +28,11 @@ function parse(string $file, string $format): array
 {
     switch ($format) {
     case 'json':
-        return json_decode($data, true);
+        return json_decode($file, true);
 
     case 'yml':
     case 'yaml':
-        return Yaml::parse($data);
+        return Yaml::parse($file);
         // file correct check
     default:
         throw new \Exception("Incorrect file format: $format");
