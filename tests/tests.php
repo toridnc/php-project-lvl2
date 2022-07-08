@@ -31,17 +31,17 @@ class DifferTest extends TestCase
 {
     /**
      * Testing function genDiff in Differ.php
-     * 
+     *
      * @param string $file1    File 1
      * @param string $file2    File 2
      * @param string $expected Expected result
      * @param string $format   Needed format. Default value - 'stylish'
-     * 
+     *
      * @return void
      */
     public function testDiffer(string $file1, string $file2, string $expected, string $format = 'stylish'): void
     {
-        $assertMethod = ($format === 'json') 
+        $assertMethod = ($format === 'json')
         ? 'assertJsonStringEqualsJsonFile' : 'assertStringEqualsFile';
 
         $this->$assertMethod(
@@ -51,7 +51,7 @@ class DifferTest extends TestCase
     }
     /**
      * Testing the received and expected results
-     * 
+     *
      * @return array
      */
     public function conformity(): array
@@ -68,13 +68,15 @@ class DifferTest extends TestCase
             ['file-1.yaml', 'file-2.yaml', 'expectedPlain.txt', 'plain'],
             'json files to plain' =>
             ['file-1.json', 'file-2.json', 'expectedPlain.txt', 'plain'],
+            'yaml files to json' => ['file-1.yaml', 'file-2.yaml', 'expectedJson.txt', 'json'],
+            'json files to json' => ['file-1.json', 'file-2.json', 'expectedJson.txt', 'json']
         ];
     }
     /**
      * Testing the received and expected results
      *
      * @param string $fileName File names
-     * 
+     *
      * @return string
      */
     public function makePathToFixture(string $fileName): string
