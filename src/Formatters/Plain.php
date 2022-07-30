@@ -50,7 +50,7 @@ function buildPlain(array $arrayDiff, string $path = ''): array
                 return "Property '{$property}' was updated.
                 From {$formattedValue1} to {$formattedValue2}";
 
-            case 'removed':
+            case 'deleted':
                 return "Property '{$property}' was removed";
 
             case 'added':
@@ -58,7 +58,7 @@ function buildPlain(array $arrayDiff, string $path = ''): array
                 return "Property '{$property}' was added with value:
                 {$formattedValue}";
 
-            case 'nested':
+            case 'hasChildren':
                 $ancestryPath = "{$path}{$data['key']}.";
                 return implode(
                     PHP_EOL, formatToPlain(

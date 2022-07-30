@@ -64,7 +64,7 @@ function buildStylish(array $arrayDiff, int $depth = 0): array
                     "{$indent}" . TWO_SPACES . ADDED . SPACE .
                     "{$data['key']}: {$formattedValue1}";
 
-            case 'removed':
+            case 'deleted':
                 $value = $data['value'];
                 $formattedValue = toString($value, $nextDepth);
                 return "{$indent}" . TWO_SPACES . REMOWED . SPACE .
@@ -76,7 +76,7 @@ function buildStylish(array $arrayDiff, int $depth = 0): array
                 return "{$indent}" . TWO_SPACES . ADDED . SPACE .
                     "{$data['key']}: {$formattedValue}";
 
-            case 'nested':
+            case 'hasChildren':
                 $stringNested = implode(
                     PHP_EOL, formatToStylish(
                         $data['children'],

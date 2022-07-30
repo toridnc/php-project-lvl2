@@ -81,7 +81,7 @@ function compare(array $file1, array $file2): string
             }
             // if the key is only in the #file 1
             if (!array_key_exists($key, $file2)) {
-                return ['key' => $key, 'value' => $file1[$key], 'type' => 'removed'];
+                return ['key' => $key, 'value' => $file1[$key], 'type' => 'deleted'];
             }
             // if the key is only in the $file2
             if (!array_key_exists($key, $file1)) {
