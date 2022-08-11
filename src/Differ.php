@@ -63,40 +63,57 @@ function getFileData(string $pathToFile): array
  * @param array $file1 First file
  * @param array $file2 Second file
  *
- * @return string
+ * @return array
  */
-function compare(array $file1, array $file2): string
+function compare(array $file1, array $file2): array
 {
+    /**
+    * From data arrays we create an array of keys
+    */
     $keysFile1 = array_keys($file1);
     $keysFile2 = array_keys($file2);
-    $mergeKeys = array_unique(array_merge($keysFile1, $keysFile2));
-    $sortKeys = sort($mergeKeys, fn ($left, $right) => $left <=> $right);
+    $mergeKeys = array_merge($keysFile1, $keysFile2);
+    $uniqKeys = array_unique($mergeKeys);
+    $sortKeys = sort($uniqKeys, fn ($left, $right) => $left <=> $right);
 
     $diff = array_map(
         function ($key) use ($file1, $file2) {
-            // if $file1 and $file2 have same keys with same values
-            if ($file1[$key] === $file2[$key]) {
-                return ['key' => $key, 'value' => $file1[$key],
-                'type' => 'unchanged'];
-            }
             // if the key is only in the #file 1
             if (!array_key_exists($key, $file2)) {
-                return ['key' => $key, 'value' => $file1[$key], 'type' => 'deleted'];
+                return [
+                    'key' => $key,
+                    'value' => $file1[$key],
+                    'type' => 'deleted'];
             }
             // if the key is only in the $file2
             if (!array_key_exists($key, $file1)) {
-                return ['key' => $key, 'value' => $file2[$key], 'type' => 'added'];
+                return [
+                    'key' => $key,
+                    'value' => $file2[$key],
+                    'type' => 'added'];
+            }
+            // if $file1 and $file2 have same keys with same values
+            if ($file1[$key] === $file2[$key]) {
+                return [
+                    'key' => $key,
+                    'value' => $file1[$key],
+                    'type' => 'unchanged'];
             }
             // if file has children
             if (is_array($file1[$key]) && is_array($file2[$key])) {
-                return ['key' => $key,
-                'children' => compare($file1[$key], $file2[$key]),
-                'type' => 'hasChildren'];
+                return [
+                    'key' => $key,
+                    'children' => compare($file1[$key], $file2[$key]),
+                    'type' => 'hasChildren'];
             }
             // if $file1 anf $file2 have same keys but different values
-            return ['key' => $key, 'value1' => $file1[$key],
-            'value2' => $file2[$key], 'type' => 'changed'];
-        }, $sortKeys
+            return [
+                'key' => $key,
+                'value1' => $file1[$key],
+                'value2' => $file2[$key],
+                'type' => 'changed'];
+        },
+        $sortKeys
     );
     return $diff;
 }

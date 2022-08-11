@@ -25,14 +25,14 @@ namespace Differ\Formatters;
 function formatting($array, string $format = 'stylish'): string
 {
     switch ($format) {
-    case 'stylish':
-        return Stylish\stylish($array);
-    case 'plain':
-        return Plain\plain($array);
-    case 'json':
-        return Json\toJson($array);
-        // file correct check
-    default:
-        throw new \Exception("Incorrect output format $format");
+        case 'stylish':
+            return Stylish\stylish($array);
+        case 'plain':
+            return Plain\plain($array);
+        case 'json':
+            return Json\toJson($array);
+            // file correct check
+        default:
+            throw new \Exception("Incorrect output format $format");
     }
 }

@@ -38,8 +38,10 @@ class DifferTest extends TestCase
      * @param string $format   Needed format. Default value - 'stylish'
      *
      * @return void
+     *
+     * @dataProvider conformity
      */
-    public function testDiffer(string $file1, string $file2, string $expected, string $format = 'stylish'): void
+    public function testGenDiff(string $file1, string $file2, string $expected, string $format = 'stylish'): void
     {
         $assertMethod = ($format === 'json')
         ? 'assertJsonStringEqualsJsonFile' : 'assertStringEqualsFile';

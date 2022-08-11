@@ -14,8 +14,8 @@
 
 namespace Differ\Formatters\Stylish;
 
-const ADDED = '+';
-const REMOWED = '-';
+const PLUS = '+';
+const MINUS = '-';
 const SPACE = ' ';
 const TWO_SPACES = '  ';
 const FOUR_SPACES = '    ';
@@ -43,54 +43,56 @@ function stylish(array $diff): string
  */
 function buildStylish(array $arrayDiff, int $depth = 0): array
 {
-    $indent = get_indent($depth);
+    $indent = getIndent($depth);
     $nextDepth = $depth + 1;
     $result = array_map(
         function ($data) use ($indent, $nextDepth): string {
             switch ($data['type']) {
-            case 'unchanged':
-                $value = $data['value'];
-                $formattedValue = toString($value, $nextDepth);
-                return "{$indent}" . FOUR_SPACES .
-                    "{$data['key']}: {$formattedValue}";
+                case 'deleted':
+                    $value = $data['value'];
+                    $formattedValue = toString($value, $nextDepth);
+                    return "{$indent}" . TWO_SPACES . MINUS . SPACE .
+                        "{$data['key']}: {$formattedValue}";
 
-            case 'changed':
-                $value1 = $data['value1'];
-                $formattedValue1 = toString($value1, $nextDepth);
-                $value2 = $data['value2'];
-                $formattedValue2 = toString($value2, $nextDepth);
-                return "{$indent}" . TWO_SPACES . REMOWED . SPACE .
-                    "{$data['key']}: {$formattedValue2}" . PHP_EOL .
-                    "{$indent}" . TWO_SPACES . ADDED . SPACE .
-                    "{$data['key']}: {$formattedValue1}";
+                case 'added':
+                    $value = $data['value'];
+                    $formattedValue = toString($value, $nextDepth);
+                    return "{$indent}" . TWO_SPACES . PLUS . SPACE .
+                        "{$data['key']}: {$formattedValue}";
 
-            case 'deleted':
-                $value = $data['value'];
-                $formattedValue = toString($value, $nextDepth);
-                return "{$indent}" . TWO_SPACES . REMOWED . SPACE .
-                    "{$data['key']}: {$formattedValue}";
+                case 'unchanged':
+                    $value = $data['value'];
+                    $formattedValue = toString($value, $nextDepth);
+                    return "{$indent}" . FOUR_SPACES .
+                        "{$data['key']}: {$formattedValue}";
 
-            case 'added':
-                $value = $data['value'];
-                $formattedValue = toString($value, $nextDepth);
-                return "{$indent}" . TWO_SPACES . ADDED . SPACE .
-                    "{$data['key']}: {$formattedValue}";
+                case 'changed':
+                    $value1 = $data['value1'];
+                    $formattedValue1 = toString($value1, $nextDepth);
+                    $value2 = $data['value2'];
+                    $formattedValue2 = toString($value2, $nextDepth);
+                    return "{$indent}" . TWO_SPACES . MINUS . SPACE .
+                            "{$data['key']}: {$formattedValue1}" . PHP_EOL .
+                            "{$indent}" . TWO_SPACES . PLUS . SPACE .
+                            "{$data['key']}: {$formattedValue2}";
 
-            case 'hasChildren':
-                $stringNested = implode(
-                    PHP_EOL, formatToStylish(
-                        $data['children'],
-                        $nextDepth
-                    )
-                );
-                return "{$indent}    {$data['key']}: {" . PHP_EOL .
-                        "{$stringNested}" . PHP_EOL . "{$indent}    }";
+                case 'hasChildren':
+                    $stringNested = implode(
+                        PHP_EOL,
+                        buildStylish(
+                            $data['children'],
+                            $nextDepth
+                        )
+                    );
+                    return "{$indent}    {$data['key']}: {" . PHP_EOL .
+                                        "{$stringNested}" . PHP_EOL . "{$indent}    }";
 
-                // file correct check
-            default;
-                throw new \Exception("Incorrect type: {$data['type']}");
+                    // file correct check
+                default:
+                    throw new \Exception("Incorrect type: {$data['type']}");
             }
-        }, $arrayDiff
+        },
+        $arrayDiff
     );
     return $result;
 }
@@ -153,7 +155,8 @@ function arrayToString(array $arrayValue, int $depth): string
             $indent = getIndent($inDepth);
             $result = PHP_EOL . "{$indent}{$key}: {$val}";
             return $result;
-        }, $keys
+        },
+        $keys
     );
     return implode('', $result);
 }

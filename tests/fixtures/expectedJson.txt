@@ -1,154 +1,123 @@
 [
     {
-        "children": [
+        "key": "common",
+        "children":[
             {
-                "children": {
-                    "second": false,
-                    "first": null
-                },
-                "key": "follow",
-                "type": "added"
+                "key":"follow",
+                "value":false,
+                "type":"added"
             },
             {
-                "children": {
-                    "second": null,
-                    "first": "Value 1"
-                },
-                "key": "setting1",
-                "type": "unchanged"
+                "key":"setting1",
+                "value":"Value 1",
+                "type":"unchanged"
             },
             {
-                "children": {
-                    "second": null,
-                    "first": 200
-                },
-                "key": "setting2",
-                "type": "deleted"
+                "key":"setting2",
+                "value":200,
+                "type":"deleted"
             },
             {
-                "children": {
-                    "second": null,
-                    "first": true
-                },
-                "key": "setting3",
-                "type": "changed"
+                "key":"setting3",
+                "value1":true,
+                "value2":null,
+                "type":"changed"
             },
             {
-                "children": {
-                    "second": "blah blah",
-                    "first": null
-                },
-                "key": "setting4",
-                "type": "added"
+                "key":"setting4",
+                "value":"blah blah",
+                "type":"added"
             },
             {
-                "children": {
-                    "second": {
-                        "key5": "value5"
-                    },
-                    "first": null
+                "key":"setting5",
+                "value": 
+                {
+                    "key5":"value5"
                 },
-                "key": "setting5",
-                "type": "added"
+                "type":"added"
             },
             {
-                "children": [
+                "key":"setting6",
+                "children":[
                     {
-                        "children": [
+                        "key":"doge",
+                        "children":[
                             {
-                                "children": {
-                                    "second": "so much",
-                                    "first": ""
-                                },
-                                "key": "wow",
-                                "type": "changed"
+                                "key":"wow",
+                                "value1":"",
+                                "value2":"so much",
+                                "type":"changed"
                             }
                         ],
-                        "key": "doge",
-                        "type": "nested"
+                        "type":"hasChildren"
                     },
                     {
-                        "children": {
-                            "second": null,
-                            "first": "value"
-                        },
-                        "key": "key",
-                        "type": "unchanged"
+                        "key":"key",
+                        "value":"value",
+                        "type":"unchanged"
                     },
                     {
-                        "children": {
-                            "second": "vops",
-                            "first": null
-                        },
-                        "key": "ops",
-                        "type": "added"
+                        "key":"ops",
+                        "value":"vops",
+                        "type":"added"
                     }
                 ],
-                "key": "setting6",
-                "type": "nested"
+                "type":"hasChildren"
             }
         ],
-        "key": "common",
-        "type": "nested"
+        "type":"hasChildren"
     },
     {
-        "children": [
+        "key":"group1",
+        "children":[
             {
-                "children": {
-                    "second": "bars",
-                    "first": "bas"
-                },
-                "key": "baz",
-                "type": "changed"
+                "key":"baz",
+                "value1":"bas",
+                "value2":"bars",
+                "type":"changed"
             },
             {
-                "children": {
-                    "second": null,
-                    "first": "bar"
-                },
-                "key": "foo",
-                "type": "unchanged"
+                "key":"foo",
+                "value":"bar",
+                "type":"unchanged"
             },
             {
-                "children": {
-                    "second": "str",
-                    "first": {
-                        "key": "value"
-                    }
-                },
-                "key": "nest",
-                "type": "changed"
+                "key":"nest",
+                "value1":
+            {
+                "key":"value"
+            },
+                "value2":"str",
+                "type":"changed"
             }
         ],
-        "key": "group1",
-        "type": "nested"
+        "type":"hasChildren"
     },
     {
-        "children": {
-            "second": null,
-            "first": {
-                "abc": 12345,
-                "deep": {
-                    "id": 45
+        "key":"group2",
+        "value":
+        {
+            "abc":12345,
+            "deep":
+            {
+                "id":45
+            }
+        },
+        "type":"deleted"
+    },
+    {
+        "key":"group3",
+        "value":
+        {
+            "deep":
+            {
+                "id":
+                {
+                    "number":45
                 }
-            }
-        },
-        "key": "group2",
-        "type": "deleted"
-    },
-    {
-        "children": {
-            "second": {
-                "deep": {
-                    "id": {
-                        "number": 45
-                    }
-                },
-                "fee": 100500
             },
-            "first": null
+            "fee":100500
         },
-        "key": "group3",
-        "type": "added"
+        "type":"added"
     }
 ]
