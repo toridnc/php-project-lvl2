@@ -18,7 +18,7 @@ use Docopt;
 
 /**
  * Run Docopt
- * 
+ *
  * @return Docopt
  */
 function runDocopt()
