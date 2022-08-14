@@ -1,0 +1,31 @@
+name: test coverage
+
+on:
+  push
+
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    steps:
+        # Check-out repository under GitHub workspace
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # important!
+      - name: Setup PHP
+        # Action gives to setup the PHP environment to test application
+        uses: shivammathur/setup-php@v2
+        with:
+          # Specify the PHP version
+          php-version: '7.4'
+      - name: Install
+        # Install project (Composer)
+        run: make install
+      - name: Run test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.6.0
+        # Add Code Climate secret key
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.TEST_COVERAGE_ID }}
+        with:
+          coverageCommand: make test-coverage
+          coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
+          debug: true
