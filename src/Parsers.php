@@ -7,7 +7,7 @@
  *
  * @category DifferenceCalculator
  * @package  GenerateDiff
- * @author   toridnc <toridnc@gmail.com>
+ * @author   toridnc <riadev@inbox.ru>
  * @license  http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link     https://github.com/toridnc/php-project-lvl2
  */
@@ -27,14 +27,14 @@ use Symfony\Component\Yaml\Yaml;
 function parse(string $file, string $format): array
 {
     switch ($format) {
-        case 'json':
-            return json_decode($file, true);
-        case 'yml':
-            return Yaml::parse($file);
-        case 'yaml':
-            return Yaml::parse($file);
+    case 'json':
+        return json_decode($file, true);
+    case 'yml':
+        return Yaml::parse($file);
+    case 'yaml':
+        return Yaml::parse($file);
             // file correct check
-        default:
-            throw new \Exception("Incorrect file format: $format");
+    default:
+        throw new \Exception("Incorrect file format: $format");
     }
 }

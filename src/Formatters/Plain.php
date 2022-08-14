@@ -7,7 +7,7 @@
  *
  * @category PlainFormat
  * @package  Formatters
- * @author   toridnc <toridnc@gmail.com>
+ * @author   toridnc <riadev@inbox.ru>
  * @license  http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link     https://github.com/toridnc/php-project-lvl2
  */
@@ -41,33 +41,33 @@ function buildPlain(array $arrayDiff, string $path = ''): array
         function ($data) use ($path): string {
             $property = "{$path}{$data['key']}";
             switch ($data['type']) {
-                case 'unchanged':
-                    return '';
+            case 'unchanged':
+return '';
 
-                case 'changed':
-                    $formattedValue1 = toString($data['value1']);
-                    $formattedValue2 = toString($data['value2']);
-                    return "Property '{$property}' was updated. From {$formattedValue1} to {$formattedValue2}";
+            case 'changed':
+                $formattedValue1 = toString($data['value1']);
+                $formattedValue2 = toString($data['value2']);
+return "Property '{$property}' was updated. From {$formattedValue1} to {$formattedValue2}";
 
-                case 'deleted':
-                    return "Property '{$property}' was removed";
+            case 'deleted':
+return "Property '{$property}' was removed";
 
-                case 'added':
-                    $formattedValue = toString($data['value']);
-                    return "Property '{$property}' was added with value: {$formattedValue}";
+            case 'added':
+                $formattedValue = toString($data['value']);
+return "Property '{$property}' was added with value: {$formattedValue}";
 
-                case 'hasChildren':
-                    $ancestryPath = "{$path}{$data['key']}.";
-                    return implode(
-                        PHP_EOL,
-                        buildPlain(
-                            $data['children'],
-                            $ancestryPath
-                        )
-                    );
+            case 'hasChildren':
+                $ancestryPath = "{$path}{$data['key']}.";
+return implode(
+            PHP_EOL,
+            buildPlain(
+                $data['children'],
+                $ancestryPath
+            )
+            );
                     // file correct check
-                default:
-                    throw new \Exception("Incorrect data type");
+            default:
+        throw new \Exception("Incorrect data type");
             }
         },
         $arrayDiff

@@ -7,7 +7,7 @@
  *
  * @category JsonFormat
  * @package  Formatters
- * @author   toridnc <toridnc@gmail.com>
+ * @author   toridnc <riadev@inbox.ru>
  * @license  http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link     https://github.com/toridnc/php-project-lvl2
  */

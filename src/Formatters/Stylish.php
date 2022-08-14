@@ -7,7 +7,7 @@
  *
  * @category StylishFormat
  * @package  Formatters
- * @author   toridnc <toridnc@gmail.com>
+ * @author   toridnc <riadev@inbox.ru>
  * @license  http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link     https://github.com/toridnc/php-project-lvl2
  */
@@ -48,48 +48,48 @@ function buildStylish(array $arrayDiff, int $depth = 0): array
     $result = array_map(
         function ($data) use ($indent, $nextDepth): string {
             switch ($data['type']) {
-                case 'deleted':
-                    $value = $data['value'];
-                    $formattedValue = toString($value, $nextDepth);
-                    return "{$indent}" . TWO_SPACES . MINUS . SPACE .
+            case 'deleted':
+                $value = $data['value'];
+                $formattedValue = toString($value, $nextDepth);
+return "{$indent}" . TWO_SPACES . MINUS . SPACE .
                         "{$data['key']}: {$formattedValue}";
 
-                case 'added':
-                    $value = $data['value'];
-                    $formattedValue = toString($value, $nextDepth);
-                    return "{$indent}" . TWO_SPACES . PLUS . SPACE .
+            case 'added':
+                $value = $data['value'];
+                $formattedValue = toString($value, $nextDepth);
+return "{$indent}" . TWO_SPACES . PLUS . SPACE .
                         "{$data['key']}: {$formattedValue}";
 
-                case 'unchanged':
-                    $value = $data['value'];
-                    $formattedValue = toString($value, $nextDepth);
-                    return "{$indent}" . FOUR_SPACES .
+            case 'unchanged':
+                $value = $data['value'];
+                $formattedValue = toString($value, $nextDepth);
+return "{$indent}" . FOUR_SPACES .
                         "{$data['key']}: {$formattedValue}";
 
-                case 'changed':
-                    $value1 = $data['value1'];
-                    $formattedValue1 = toString($value1, $nextDepth);
-                    $value2 = $data['value2'];
-                    $formattedValue2 = toString($value2, $nextDepth);
-                    return "{$indent}" . TWO_SPACES . MINUS . SPACE .
+            case 'changed':
+                $value1 = $data['value1'];
+                $formattedValue1 = toString($value1, $nextDepth);
+                $value2 = $data['value2'];
+                $formattedValue2 = toString($value2, $nextDepth);
+return "{$indent}" . TWO_SPACES . MINUS . SPACE .
                             "{$data['key']}: {$formattedValue1}" . PHP_EOL .
                             "{$indent}" . TWO_SPACES . PLUS . SPACE .
                             "{$data['key']}: {$formattedValue2}";
 
-                case 'hasChildren':
-                    $stringNested = implode(
-                        PHP_EOL,
-                        buildStylish(
-                            $data['children'],
-                            $nextDepth
-                        )
-                    );
-                    return "{$indent}    {$data['key']}: {" . PHP_EOL .
+            case 'hasChildren':
+                $stringNested = implode(
+                    PHP_EOL,
+                    buildStylish(
+                        $data['children'],
+                        $nextDepth
+                    )
+                );
+return "{$indent}    {$data['key']}: {" . PHP_EOL .
                                         "{$stringNested}" . PHP_EOL . "{$indent}    }";
 
                     // file correct check
-                default:
-                    throw new \Exception("Incorrect type: {$data['type']}");
+            default:
+throw new \Exception("Incorrect type: {$data['type']}");
             }
         },
         $arrayDiff

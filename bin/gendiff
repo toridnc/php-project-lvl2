@@ -9,7 +9,7 @@
  *
  * @category DifferenceCalculator
  * @package  GenerateDiff
- * @author   toridnc <toridnc@gmail.com>
+ * @author   toridnc <riadev@inbox.ru>
  * @license  http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link     https://github.com/toridnc/php-project-lvl2
  */
@@ -22,24 +22,9 @@ if (file_exists($autoloadPath1)) {
     include_once $autoloadPath2;
 }
 
+use function Differ\Cli\runDocopt;
 use function Differ\Differ\genDiff;
 
-const DOC = <<<DOC
-Generate diff
-Usage:
-gendiff (-h|--help)
-gendiff (-v|--version)
-gendiff [--format <fmt>] <firstFile> <secondFile>
-Options:
--h --help                     Show this screen
--v --version                  Show version
---format <fmt>                Report format [default: stylish]
-DOC;
+$args = runDocopt();
 
-$args = Docopt::handle(DOC, array('version' => 'Generate diff 1.0'));
-
-$firstFilePath = $args['<firstFile>'];
-$secondFilePath = $args['<secondFile>'];
-$format = $args['--format'];
-
-print_r(genDiff($firstFilePath, $secondFilePath, $format));
+print_r(genDiff($args['<firstFile>'], $args['<secondFile>'], $args['--format']) . PHP_EOL);
